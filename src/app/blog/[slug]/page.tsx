@@ -7,14 +7,20 @@ type Params = {
 };
 
 async function getBlog(slug: string): Promise<Blog | null> {
-  const base = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
-  const response = await fetch(`${base}/blogs/${slug}`, {
-    next: { revalidate: 120 }
-  });
+  const base = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (!base) return null;
 
-  if (!response.ok) return null;
-  const json = await response.json();
-  return json.data || null;
+  try {
+    const response = await fetch(`${base}/blogs/${slug}`, {
+      next: { revalidate: 120 }
+    });
+
+    if (!response.ok) return null;
+    const json = await response.json();
+    return json.data || null;
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {

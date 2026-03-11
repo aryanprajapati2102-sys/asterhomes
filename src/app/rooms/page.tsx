@@ -10,8 +10,10 @@ export const metadata: Metadata = {
 };
 
 async function getRooms(): Promise<Room[]> {
+  const base = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (!base) return [];
+
   try {
-    const base = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
     const response = await fetch(`${base}/rooms`, {
       next: { revalidate: 60 }
     });

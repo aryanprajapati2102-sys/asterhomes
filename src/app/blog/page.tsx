@@ -9,14 +9,20 @@ export const metadata: Metadata = {
 };
 
 async function getBlogs(): Promise<Blog[]> {
-  const base = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
-  const response = await fetch(`${base}/blogs`, {
-    next: { revalidate: 120 }
-  });
+  const base = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (!base) return [];
 
-  if (!response.ok) return [];
-  const json = await response.json();
-  return json.data || [];
+  try {
+    const response = await fetch(`${base}/blogs`, {
+      next: { revalidate: 120 }
+    });
+
+    if (!response.ok) return [];
+    const json = await response.json();
+    return json.data || [];
+  } catch {
+    return [];
+  }
 }
 
 export default async function BlogPage() {
