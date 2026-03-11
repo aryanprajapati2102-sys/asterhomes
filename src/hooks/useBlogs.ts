@@ -15,7 +15,7 @@ export const useBlogs = () => {
       try {
         const data = await fetchBlogs();
         if (mounted) setBlogs(data);
-      } catch (_error) {
+      } catch {
         if (mounted) setError("Unable to load blog posts right now.");
       } finally {
         if (mounted) setLoading(false);

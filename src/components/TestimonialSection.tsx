@@ -35,7 +35,7 @@ export default function TestimonialSection() {
               transition={{ delay: index * 0.07 }}
               className="rounded-xl2 bg-white p-5 shadow-card"
             >
-              <p className="text-sm text-slate-700">"{item.quote}"</p>
+              <p className="text-sm text-slate-700">&quot;{item.quote}&quot;</p>
               <p className="mt-4 text-sm font-semibold text-primary">{item.name}</p>
               <p className="text-xs text-slate-500">{item.role}</p>
             </motion.div>

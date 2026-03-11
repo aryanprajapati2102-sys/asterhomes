@@ -53,7 +53,7 @@ export default function ContactForm({ mode = "enquiry" }: ContactFormProps) {
 
       setStatus({ type: "success", message: "Submitted successfully. We will contact you soon." });
       setForm({ name: "", email: "", phone: "", moveInDate: "", roomType: "", message: "" });
-    } catch (_error) {
+    } catch {
       setStatus({ type: "error", message: "Submission failed. Please try again." });
     } finally {
       setLoading(false);

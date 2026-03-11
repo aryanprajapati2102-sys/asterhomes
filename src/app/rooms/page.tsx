@@ -10,14 +10,18 @@ export const metadata: Metadata = {
 };
 
 async function getRooms(): Promise<Room[]> {
-  const base = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
-  const response = await fetch(`${base}/rooms`, {
-    next: { revalidate: 60 }
-  });
+  try {
+    const base = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
+    const response = await fetch(`${base}/rooms`, {
+      next: { revalidate: 60 }
+    });
 
-  if (!response.ok) return [];
-  const json = await response.json();
-  return json.data || [];
+    if (!response.ok) return [];
+    const json = await response.json();
+    return json.data || [];
+  } catch {
+    return [];
+  }
 }
 
 export default async function RoomsPage() {

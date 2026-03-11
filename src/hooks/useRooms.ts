@@ -15,7 +15,7 @@ export const useRooms = () => {
       try {
         const data = await fetchRooms();
         if (mounted) setRooms(data);
-      } catch (_error) {
+      } catch {
         if (mounted) setError("Unable to load rooms right now.");
       } finally {
         if (mounted) setLoading(false);
